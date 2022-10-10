@@ -1,0 +1,23 @@
+version: '3'
+
+volumes:
+  cowrie-etc:
+  cowrie-var:
+
+services:
+  cowrie:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "22:2222"
+      - "23:2223"
+    volumes:
+      - ./cowrie-etc:/cowrie/cowrie-git/etc
+      - ./cowrie-var:/cowrie/cowrie-git/var
+    environment:
+      - COWRIE_TELNET_ENABLED=yes
+    logging:
+      driver: gcplogs
+
